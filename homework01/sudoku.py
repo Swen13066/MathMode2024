@@ -1,5 +1,6 @@
 import pathlib
 import typing as tp
+import random
 
 T = tp.TypeVar("T")
 
@@ -201,7 +202,19 @@ def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
     >>> check_solution(solution)
     True
     """
-    pass
+    grid = [['.' for i in range(9)] for i in range(9)]
+    sudoku = solve(grid)
+    if N >= 81:
+        return sudoku
+    positions = [(i, j) for i in range(9) for j in range(9)]
+    random.shuffle(positions)
+    for pos in positions:
+        val = sudoku[pos[0]][pos[1]]
+        sudoku[pos[0]][pos[1]] = '.'
+        if not solve([row[:] for row in sudoku]):
+            sudoku[pos[0]][pos[1]] = val
+        if sum(row.count('.') for row in sudoku) == 81 - N:
+            return sudoku
 
 
 if __name__ == "__main__":
