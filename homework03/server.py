@@ -5,12 +5,34 @@ from flask import Flask, abort
 
 app = Flask(__name__)
 db = []
+db.append({
+        'name': f'bot',
+        'time': 1,
+        'text': '''Проект для дз номер 3 \n
+    __________\n
+    Проект состоит из 3 основных частей:  \n
+    - server — сервер, который хранит наш мессенджер и поддерживает 
+    браузерные странички /index, /status\n
+    - sender — файл, поддерживающий отправку сообщений от некоторго польователя\n
+    - reciver — файл, который обеспечивает прием и вывод сообщений \n 
+    \n
+    Чтобы запстить весь проект целиком, нужно исполнить в командной строке  
+    python server.py  \n
+    Далее  в любом порядке нужно запустить остальные 2 файла  
+    python sender.py\n
+    python reciver.py  \n
+    \n
+    Так же если отправить команду /help в reciver.py,
+    то это сообщение будет выведено
+    '''
+    })
 for i in range(3):
     db.append({
         'name': f'user{i}',
-        'time': 1000*i,
+        'time': 10000*i,
         'text': f'text by user{i}'
     })
+
 
 
 class Message(BaseModel):
